@@ -83,9 +83,9 @@ function Calendar() {
                                 key={event.id}
                                 className={`text-xs flex flex-col justify-between items-start p-1 mb-1 rounded-lg shadow-md
                                     ${isWeekend ? 'bg-gray-600 text-white' : ''}
-                                    ${(!isWeekend && event.type === "Personal") ? 'bg-yellow-200 text-black' : ''}
-                                    ${(!isWeekend && event.type === "Work") ? 'bg-blue-400 text-black' : ''}
-                                    ${(!isWeekend && event.type === "Other") ? 'bg-orange-300 text-black' : ''}  
+                                    ${!isWeekend && event.type === "Personal" ? 'bg-yellow-200 text-black' : ''}
+                                    ${!isWeekend && event.type === "Work" ? 'bg-blue-400 text-black' : ''}
+                                    ${!isWeekend && event.type === "Other" ? 'bg-orange-300 text-black' : ''}
                                     `
                                 }
                                 onClick={(e) => {
