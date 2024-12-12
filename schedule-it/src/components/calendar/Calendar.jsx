@@ -56,9 +56,9 @@ function Calendar() {
         for (let i = 1; i <= daysInMonth; i++) {
             const currentDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), i).getDay()
             const isWeekend = currentDay === 0 || currentDay === 6
-            const isToday = i === new Date().getDate() && 
-                            currentDate.getMonth() === new Date().getMonth() && 
-                            currentDate.getFullYear() === new Date().getFullYear()
+            const isToday = i === new Date().getDate() &&
+                currentDate.getMonth() === new Date().getMonth() &&
+                currentDate.getFullYear() === new Date().getFullYear()
 
             const dayEvents = events.filter(event =>
                 event.date === i &&
@@ -101,7 +101,6 @@ function Calendar() {
                 </div>
             )
         }
-
         return days
     }
 
