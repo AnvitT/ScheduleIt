@@ -24,7 +24,7 @@ const Event = ({ event, isWeekend, handleEditEvent }) => {
         `}
             onClick={(e) => {
                 e.stopPropagation();
-                handleEditEvent(event);
+                handleEditEvent({...event});
             }}
         >
             <span className="font-bold">{event.name}</span>

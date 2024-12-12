@@ -41,7 +41,7 @@ function Calendar() {
 
     const handleEditEvent = (event) => {
         setSelectedDay(event.date)
-        setEditingEvent(event)
+        setEditingEvent({...event})
         setIsEditDialogOpen(true)
     }
 

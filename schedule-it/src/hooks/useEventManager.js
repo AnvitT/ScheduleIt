@@ -19,15 +19,15 @@ export const useEventManager = () => {
     }, [getEvents])
 
     const filteredEvents = useCallback(() => {
-      return getSortedEvents().filter(event =>
-          event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          event.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (event.date && event.date.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
-          (event.startTime && event.startTime.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
-          (event.endTime && event.endTime.toString().toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-  }, [getSortedEvents, searchQuery]);
+        return getSortedEvents().filter(event =>
+            event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            event.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            event.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (event.date && event.date.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (event.startTime && event.startTime.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (event.endTime && event.endTime.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+    }, [getSortedEvents, searchQuery]);
 
     const saveEvent = useCallback((eventData, editingEvent = null) => {
         const events = getEvents()
@@ -46,7 +46,10 @@ export const useEventManager = () => {
         if (editingEvent) {
             const updatedEvents = events.map(event =>
                 event.id === editingEvent.id
-                    ? { ...event, ...eventData }
+                    ? {
+                        id: editingEvent.id, // Preserve the original ID
+                        ...eventData  // Spread the new data completely
+                    }
                     : event
             )
             localStorage.setItem('events', JSON.stringify(updatedEvents))

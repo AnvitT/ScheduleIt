@@ -24,20 +24,6 @@ const EventDialog = ({
     const [type, setType] = useState(initialData.type || '')
     const [errorMessage, setErrorMessage] = useState('')
 
-    useEffect(() => {
-        if (isOpen) {
-            setErrorMessage('')
-        }
-    }, [isOpen])
-    
-    useEffect(() => {
-        setName(initialData.name || '')
-        setStartTime(initialData.startTime || '09:00')
-        setEndTime(initialData.endTime || '10:00')
-        setDescription(initialData.description || '')
-        setType(initialData.type || '')
-    }, [initialData])
-
     const handleStartTimeChange = (time) => {
         setStartTime(time)
         if (time >= endTime) {
@@ -72,15 +58,26 @@ const EventDialog = ({
         if (result.success) {
             // Reset form and close dialog
             setName('')
-            setDescription('')
             setStartTime('09:00')
             setEndTime('10:00')
-            onOpenChange(false)
+            setDescription('')
             setType('')
+            setErrorMessage('')
+            onOpenChange(false)
         } else {
             setErrorMessage(result.message)
         }
     }
+    
+    useEffect(() => {
+        if (isEditMode) {
+            setName(initialData.name)
+            setStartTime(initialData.startTime)
+            setEndTime(initialData.endTime)
+            setDescription(initialData.description)
+            setType(initialData.type)
+        }
+    }, [isEditMode, initialData])
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
