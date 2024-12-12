@@ -30,6 +30,14 @@ const EventDialog = ({
         }
     }, [isOpen])
     
+    useEffect(() => {
+        setName(initialData.name || '')
+        setStartTime(initialData.startTime || '09:00')
+        setEndTime(initialData.endTime || '10:00')
+        setDescription(initialData.description || '')
+        setType(initialData.type || '')
+    }, [initialData])
+
     const handleStartTimeChange = (time) => {
         setStartTime(time)
         if (time >= endTime) {
