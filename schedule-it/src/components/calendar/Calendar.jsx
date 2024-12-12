@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
 import { DAYS } from '@/lib/constants'
-import { getDaysInMonth, getFirstDayOfMonth } from '@/lib/calendarHelpers'
+import { getDaysInMonth, getFirstDayOfMonth, isEventOverlapping } from '@/lib/calendarHelpers'
 import { useEventManager } from '@/hooks/useEventManager'
 import CalendarHeader from './CalendarHeader'
 import EventDialog from './EventDialog'
@@ -46,18 +46,27 @@ function Calendar() {
     }
 
     const handleDropEvent = (item, day) => {
-        const event = getEvents().find(event => event.id === item.id)
+        const events = getEvents();
+        const event = events.find(event => event.id === item.id);
         if (event) {
-            deleteEvent(event.id)
-            saveEvent({
+            // Update the event's date
+            const updatedEvent = {
                 ...event,
                 date: day,
                 month: currentDate.getMonth(),
                 year: currentDate.getFullYear()
-            })
-            setEvents(getEvents())
+            };
+    
+            // Check for overlapping with the updated event
+            if (isEventOverlapping(events, updatedEvent)) {
+                alert('Event overlaps with another existing event.');
+            } else {
+                deleteEvent(event.id);
+                saveEvent(updatedEvent);
+                setEvents(getEvents());
+            }
         }
-    }
+    };
 
     useEffect(() => {
         setEvents(getEvents());
