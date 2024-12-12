@@ -15,7 +15,7 @@ Schedule It is a web application designed to help you manage and schedule your e
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/your-username/schedule-it.git
+    git clone https://github.com/AnvitT/schedule-it.git
     cd schedule-it
     ```
 
