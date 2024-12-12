@@ -86,6 +86,7 @@ function Calendar() {
                                     ${!isWeekend && event.type === "Personal" ? 'bg-yellow-200 text-black' : ''}
                                     ${!isWeekend && event.type === "Work" ? 'bg-blue-400 text-black' : ''}
                                     ${!isWeekend && event.type === "Other" ? 'bg-orange-300 text-black' : ''}
+                                    ${!isWeekend && event.type === "" ? 'bg-emerald-300 text-black' : ''}
                                     `
                                 }
                                 onClick={(e) => {
