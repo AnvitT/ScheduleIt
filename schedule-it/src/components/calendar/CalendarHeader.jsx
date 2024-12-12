@@ -67,7 +67,7 @@ const CalendarHeader = ({
                             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent className="mr-2">
                         <DropdownMenuItem onSelect={() => handleExport('json', month, year)} className={menuItemClass}>Export JSON</DropdownMenuItem>
                         <DropdownMenuItem onSelect={() => handleExport('csv', month, year)} className={menuItemClass}>Export CSV</DropdownMenuItem>
                         <DropdownMenuItem asChild>

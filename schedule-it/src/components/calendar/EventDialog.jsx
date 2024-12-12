@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -24,6 +24,12 @@ const EventDialog = ({
     const [type, setType] = useState(initialData.type || '')
     const [errorMessage, setErrorMessage] = useState('')
 
+    useEffect(() => {
+        if (isOpen) {
+            setErrorMessage('')
+        }
+    }, [isOpen])
+    
     const handleStartTimeChange = (time) => {
         setStartTime(time)
         if (time >= endTime) {
@@ -70,7 +76,7 @@ const EventDialog = ({
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[425px] [&>button]:hidden">
+            <DialogContent className="sm:max-w-[425px] [&>button]:hidden p-4">
                 <DialogHeader>
                     <DialogTitle>{isEditMode ? 'Edit Event' : 'Add Event'}</DialogTitle>
                     <DialogDescription>
@@ -151,7 +157,7 @@ const EventDialog = ({
                         </Select>
                     </div>
                 </div>
-                <DialogFooter>
+                <DialogFooter className="flex flex-col sm:flex-row gap-2">
                     {errorMessage && <div className="text-xs text-red-500 mt-1">{errorMessage}</div>}
                     {isEditMode && (
                         <Button
