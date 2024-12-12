@@ -5,6 +5,9 @@ import { getDaysInMonth, getFirstDayOfMonth } from '@/lib/calendarHelpers'
 import { useEventManager } from '@/hooks/useEventManager'
 import CalendarHeader from './CalendarHeader'
 import EventDialog from './EventDialog'
+import { useDrop } from 'react-dnd'
+import Event from './Event'
+
 
 function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -41,6 +44,14 @@ function Calendar() {
         setIsEditDialogOpen(true)
     }
 
+    const handleDropEvent = (item, day) => {
+        const event = getEvents().find(event => event.id === item.id)
+        if (event) {
+            deleteEvent(event.id)
+            saveEvent({ ...event, date: day, month: currentDate.getMonth(), year: currentDate.getFullYear() })
+        }
+    }
+
     const renderCalendarDays = () => {
         const daysInMonth = getDaysInMonth(currentDate)
         const firstDayOfMonth = getFirstDayOfMonth(currentDate)
@@ -66,12 +77,22 @@ function Calendar() {
                 event.year === currentDate.getFullYear()
             )
 
+            const [{ isOver }, drop] = useDrop(() => ({
+                accept: 'event',
+                drop: (item) => handleDropEvent(item, i),
+                collect: (monitor) => ({
+                    isOver: !!monitor.isOver(),
+                }),
+            }))
+
             days.push(
                 <div
                     key={i}
+                    ref={drop}
                     className={`h-24 p-2 flex flex-col items-start justify-start border rounded shadow hover:bg-opacity-90 transition-colors cursor-pointer
                         ${isWeekend ? 'bg-gray-100 border-gray-300' : 'bg-blue-50 border-blue-200'}
-                        ${isToday ? 'bg-blue-200 border-blue-600  border-2' : ''}`}
+                        ${isToday ? 'bg-blue-200 border-blue-600  border-2' : ''}
+                        ${isOver ? 'bg-green-200' : ''}`}
                     onClick={() => handleAddEvent(i)}
                 >
                     <span className={`text-sm font-semibold mb-1 ${isWeekend ? 'text-gray-600' : 'text-blue-800'}`}>
@@ -79,24 +100,12 @@ function Calendar() {
                     </span>
                     <div className="flex-grow overflow-auto w-full">
                         {dayEvents.map(event => (
-                            <div
+                            <Event
                                 key={event.id}
-                                className={`text-xs flex flex-col justify-between items-start p-1 mb-1 rounded-lg shadow-md
-                                    ${isWeekend ? 'bg-gray-600 text-white' : ''}
-                                    ${!isWeekend && event.type === "Personal" ? 'bg-yellow-200 text-black' : ''}
-                                    ${!isWeekend && event.type === "Work" ? 'bg-blue-400 text-black' : ''}
-                                    ${!isWeekend && event.type === "Other" ? 'bg-orange-300 text-black' : ''}
-                                    ${!isWeekend && event.type === "" ? 'bg-emerald-300 text-black' : ''}
-                                    `
-                                }
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    handleEditEvent(event)
-                                }}
-                            >
-                                <span className="font-bold">{event.name}</span>
-                                <span className="text-xs">{event.startTime} - {event.endTime}</span>
-                            </div>
+                                event={event}
+                                isWeekend={isWeekend}
+                                handleEditEvent={handleEditEvent}
+                            />
                         ))}
                     </div>
                 </div>

@@ -10,6 +10,7 @@ Schedule It is a web application designed to help you manage and schedule your e
 - **User-Friendly Interface**: Easy to navigate and use.
 - **Colour-Coded Events**: Events are colour-coded based on their type.
 - **Local Storage**: Events are saved in the browser's local storage.
+- **Drag and Drop**: Drag and drop events to change their date.
 
 ## Instructions to Run the App Locally
 
