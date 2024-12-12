@@ -15,7 +15,7 @@ Schedule It is a web application designed to help you manage and schedule your e
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/AnvitT/schedule-it.git
+    git clone https://github.com/AnvitT/ScheduleIt.git
     cd schedule-it
     ```
 
@@ -29,7 +29,7 @@ Schedule It is a web application designed to help you manage and schedule your e
     npm run dev
     ```
 
-4. **Open your browser** and navigate to `http://localhost:3000` to see the app in action.
+4. **Open your browser** and navigate to `http://localhost:5173/` to see the app in action.
 
 ## Deployed App
 
