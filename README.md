@@ -13,8 +13,13 @@ Schedule It is a web application designed to help you manage and schedule your e
 
 ## Instructions to Run the App Locally
 
+1. **Prerequisites**:
+    - Node.js installed on your machine.
+
+
 1. **Clone the repository**:
     ```sh
+    mkdir schedule-it
     git clone https://github.com/AnvitT/ScheduleIt.git
     cd schedule-it
     ```
